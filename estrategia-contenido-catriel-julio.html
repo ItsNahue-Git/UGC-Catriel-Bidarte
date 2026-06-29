@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrategia de Contenido · Catriel Bidarte · Julio 2026</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --panel:#141414; --panel2:#1c1c1c; --line:#2e2e2e;
+    --txt:#f5f5f0; --muted:#9a9a90; --accent:#ffd400; --accent2:#ffb800;
+    --tofu:#ffe14d; --mofu:#ffc107; --bofu:#ff9500; --ok:#ffd400;
+    --radius:16px; --shadow:0 8px 30px rgba(0,0,0,.55);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,rgba(255,212,0,.12),transparent),var(--bg);
+    color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55;}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 20px 80px;}
+  header.hero{padding:38px 30px;border-radius:24px;background:linear-gradient(135deg,#1a1600,#241e00 55%,#0a0a0a);
+    border:1px solid var(--accent);box-shadow:var(--shadow);margin-bottom:28px;position:relative;overflow:hidden}
+  header.hero h1{color:var(--accent)}
+  header.hero:after{content:"🎬";position:absolute;right:24px;top:8px;font-size:120px;opacity:.08}
+  .eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:12px;color:var(--accent);font-weight:700}
+  h1{font-size:clamp(28px,5vw,46px);margin:8px 0 6px;line-height:1.1}
+  .sub{color:var(--muted);max-width:700px;font-size:16px}
+  .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .pill{background:rgba(255,255,255,.06);border:1px solid var(--line);padding:6px 12px;border-radius:999px;font-size:13px}
+  h2{font-size:24px;margin:42px 0 14px;display:flex;align-items:center;gap:10px}
+  h2 .bar{width:6px;height:24px;border-radius:3px;background:var(--accent)}
+  h3{font-size:18px;margin:22px 0 8px}
+  p{color:#d8d6cc}
+  .grid{display:grid;gap:16px}
+  .cols-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .cols-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .card h3{margin-top:0}
+  .muted{color:var(--muted)}
+  .tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+    padding:3px 9px;border-radius:6px;margin-bottom:6px}
+  .t-tofu{background:rgba(255,225,77,.15);color:var(--tofu);border:1px solid rgba(255,225,77,.35)}
+  .t-mofu{background:rgba(255,193,7,.15);color:var(--mofu);border:1px solid rgba(255,193,7,.35)}
+  .t-bofu{background:rgba(255,149,0,.15);color:var(--bofu);border:1px solid rgba(255,149,0,.35)}
+  ul{margin:8px 0;padding-left:20px}
+  li{margin:5px 0;color:#d8d6cc}
+  .persona{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+  .avatar{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;
+    background:linear-gradient(135deg,var(--accent2),var(--accent));flex-shrink:0;color:#0a0a0a}
+  .funnel-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .funnel-box{border-radius:var(--radius);padding:18px;border:1px solid var(--line)}
+  .fb-tofu{background:linear-gradient(160deg,rgba(255,225,77,.10),transparent)}
+  .fb-mofu{background:linear-gradient(160deg,rgba(255,193,7,.10),transparent)}
+  .fb-bofu{background:linear-gradient(160deg,rgba(255,149,0,.10),transparent)}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 18px;font-size:13px}
+  .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .week{margin-bottom:22px}
+  .week-h{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:700}
+  .day{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
+  .day-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;cursor:pointer;
+    background:var(--panel2);border-bottom:1px solid var(--line)}
+  .day-date{font-weight:700;font-size:16px}
+  .day-meta{font-size:13px;color:var(--muted)}
+  .opts{padding:6px 18px 14px}
+  .opt{border-left:3px solid var(--line);padding:12px 14px;margin:12px 0;background:rgba(255,255,255,.02);border-radius:0 10px 10px 0}
+  .opt b{color:#fff}
+  .opt .hook{font-style:italic;color:var(--accent);background:rgba(255,212,0,.10);padding:6px 10px;border-radius:8px;display:inline-block;margin:6px 0}
+  .opt .why{font-size:13px;color:var(--muted)}
+  .chev{transition:transform .2s}
+  .open .chev{transform:rotate(90deg)}
+  .opts{display:none}
+  .open .opts{display:block}
+  .note{background:rgba(255,212,0,.07);border:1px solid rgba(255,212,0,.3);border-radius:12px;padding:14px 18px;margin-top:14px;font-size:14px}
+  footer{margin-top:50px;color:var(--muted);font-size:13px;text-align:center}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Estrategia de contenido orgánico</div>
+  <h1>Catriel Bidarte · Actor</h1>
+  <p class="sub">Plan de contenido para TikTok e Instagram Reels — Julio 2026. Le habla a la <b>comunidad de actores independientes</b> desde lo emocional del oficio y la doble vida abogado-actor, construyendo comunidad real mientras demuestra rango para que productores y casting lo vean.</p>
+  <div class="pills">
+    <span class="pill">🎯 Conectar con la comunidad de actores</span>
+    <span class="pill">👀 Vidriera para productores/casting</span>
+    <span class="pill">📱 TikTok + IG Reels</span>
+    <span class="pill">📅 3 publicaciones / semana</span>
+    <span class="pill">🔁 3 opciones por día</span>
+    <span class="pill">💸 100% orgánico</span>
+  </div>
+</header>
+
+<!-- EL CAMBIO -->
+<h2><span class="bar"></span>El giro de enfoque</h2>
+<p>El plan anterior mostraba talento, pero no daba motivo para <b>quedarse y seguir</b>. La gente no sigue a quien se luce; sigue a quien le aporta algo o la hace sentir entendida. Por eso el eje ya no es "mirá cómo actúo", sino <b>"entiendo lo que estás viviendo como actor, y te lo cuento de verdad"</b>.</p>
+<div class="note">⚡ <b>La clave de la conexión:</b> Catriel actúa desde los 10 y además es abogado. Esa combinación lo vuelve la voz perfecta para hablarle a los miles de actores que <b>no viven solo de actuar</b> y cargan con el rechazo, la duda y la doble vida. Ese es el contenido que se comparte y genera comunidad — y, de fondo, su rango sigue visible para quien decide.</div>
+
+<!-- BUYER PERSONA -->
+<h2><span class="bar" style="background:var(--accent2)"></span>¿A quién le hablamos?</h2>
+<p>Un público <b>principal</b> que construye la comunidad y da el alcance, y uno <b>secundario</b> que decide y mira de reojo.</p>
+<div class="grid cols-2">
+  <div class="card">
+    <div class="persona">
+      <div class="avatar">🎭</div>
+      <div>
+        <h3 style="margin:0">PRINCIPAL · El actor independiente</h3>
+        <span class="muted">20-40 años. Estudia o ejerce la actuación, hace castings, vive del oficio a medias o lo combina con otro trabajo.</span>
+      </div>
+    </div>
+    <p><b>Qué siente:</b> rechazo constante, dudas sobre si "vale la pena", culpa por no dedicarse 100%, soledad en el camino.</p>
+    <p><b>Qué busca en redes:</b> sentirse entendido, aprender del oficio, ver que alguien más vive lo mismo y lo sostiene.</p>
+    <p><b>Por qué Catriel le sirve:</b> es uno de ellos, pero con una doble vida (abogado) que muchos comparten o envidian. Su honestidad genera identificación y comunidad — son los que comentan, comparten y lo recomiendan.</p>
+  </div>
+  <div class="card">
+    <div class="persona">
+      <div class="avatar">🎬</div>
+      <div>
+        <h3 style="margin:0">SECUNDARIO · Productores y casting</h3>
+        <span class="muted">Directores de casting, productores independientes, realizadores que buscan talento en redes.</span>
+      </div>
+    </div>
+    <p><b>Qué buscan:</b> actores con presencia, rango, profesionalismo y una comunidad que los respalde (audiencia = menos riesgo).</p>
+    <p><b>Cómo los alcanzamos sin perder al público principal:</b> el contenido de comunidad genera alcance y credibilidad; los registros de rango (viernes) y un perfil prolijo les hablan directo cuando llegan.</p>
+    <p class="muted">💡 Una comunidad fiel de actores es justamente lo que hace que un productor frene el scroll y diga "este tiene algo".</p>
+  </div>
+</div>
+
+<!-- PILARES -->
+<h2><span class="bar" style="background:var(--mofu)"></span>3 pilares de contenido</h2>
+<div class="grid cols-3">
+  <div class="card"><h3>❤️ Realidad emocional del oficio</h3><p class="muted">Rechazo, dudas, vocación, edad, miedos, lo que todo actor siente pero pocos dicen en voz alta. El corazón de la conexión.</p></div>
+  <div class="card"><h3>⚖️ Abogado-actor / doble vida</h3><p class="muted">Cómo sostener el arte con un trabajo "serio", el equilibrio, la culpa, las ventajas. Su diferencial y un dolor compartido por muchos actores.</p></div>
+  <div class="card"><h3>🎭 Oficio &amp; rango (vidriera)</h3><p class="muted">Tips técnicos, proceso, escenas y registros. Aporta valor a la comunidad y, en simultáneo, es la vidriera para la industria.</p></div>
+</div>
+
+<!-- FUNNEL -->
+<h2><span class="bar" style="background:var(--tofu)"></span>Cómo se distribuye el embudo</h2>
+<p>El embudo ahora prioriza la conexión: se atrae con identificación emocional, se aporta valor para fidelizar, y se demuestra rango con una convocatoria suave.</p>
+<div class="funnel-row">
+  <div class="funnel-box fb-tofu">
+    <span class="tag t-tofu">TOFU · Lunes</span>
+    <h3 style="margin:6px 0">Identificación</h3>
+    <p class="muted">Hooks emocionales y de doble vida que <b>todo actor reconoce</b> y comparte ("me pasa igual"). Objetivo: alcance + que la comunidad te encuentre.</p>
+    <p class="muted"><b>KPI:</b> shares, guardados, comentarios "soy yo".</p>
+  </div>
+  <div class="funnel-box fb-mofu">
+    <span class="tag t-mofu">MOFU · Miércoles</span>
+    <h3 style="margin:6px 0">Valor &amp; comunidad</h3>
+    <p class="muted">Tips, reflexiones profundas, el ángulo abogado-actor, responder a la comunidad. Objetivo: que <b>te sigan y confíen</b>.</p>
+    <p class="muted"><b>KPI:</b> follows, retención, respuestas.</p>
+  </div>
+  <div class="funnel-box fb-bofu">
+    <span class="tag t-bofu">BOFU · Viernes</span>
+    <h3 style="margin:6px 0">Demostrar &amp; convocar</h3>
+    <p class="muted">Rango actoral + convocatoria suave: colaborar, conectar, "disponible para castings". Objetivo: que la <b>industria y los pares actúen</b>.</p>
+    <p class="muted"><b>KPI:</b> mensajes, contactos, colaboraciones, visitas a perfil.</p>
+  </div>
+</div>
+
+<!-- CALENDARIO -->
+<h2><span class="bar" style="background:var(--bofu)"></span>Calendario de contenido · Julio 2026</h2>
+<p>Días: <b>lunes, miércoles y viernes</b>. Cada día trae <b>3 opciones</b> para elegir. Tocá cada día para desplegarlas.</p>
+<div class="legend">
+  <span><span class="dot" style="background:var(--tofu)"></span>TOFU · Identificación</span>
+  <span><span class="dot" style="background:var(--mofu)"></span>MOFU · Valor</span>
+  <span><span class="dot" style="background:var(--bofu)"></span>BOFU · Demostrar</span>
+  <span class="muted">👆 click para desplegar</span>
+</div>
+<div id="cal"></div>
+
+<div class="note" style="margin-top:24px">💡 <b>Cómo usarlo:</b> elegí 1 opción por día con 2-3 días de anticipación. Grabá en lotes (un domingo cubre varios días). Lo que conecta, repetilo: si un video de "realidad del oficio" explota, hacé parte 2. Leé los comentarios — son tu próxima fuente de ideas.</div>
+
+<!-- REGLAS -->
+<h2><span class="bar"></span>5 reglas para que conecte</h2>
+<div class="grid cols-2">
+  <div class="card"><h3>1. Empezá por la herida, no por el logro</h3><p class="muted">"Me rechazaron 40 veces este año" conecta mil veces más que "mirá esta escena". La vulnerabilidad es el imán de la comunidad.</p></div>
+  <div class="card"><h3>2. Hablá en "vos/nosotros"</h3><p class="muted">Dirigite al actor que mira: "si sos actor, esto te va a pasar". Que se sienta una charla entre pares, no un monólogo.</p></div>
+  <div class="card"><h3>3. Real &gt; perfecto</h3><p class="muted">Luz natural, comportamiento genuino. La excepción son las escenas de rango (viernes), que sí pueden ser cinematográficas.</p></div>
+  <div class="card"><h3>4. Serializá lo que funciona</h3><p class="muted">Formatos repetibles ("Diario de un actor", "Abogado de día, actor de noche") generan expectativa y comunidad que vuelve.</p></div>
+  <div class="card"><h3>5. Perfil que sirve a los dos públicos</h3><p class="muted">Bio: "Actor 🎭 + abogado ⚖️ | la realidad del oficio | disponible para castings". Reel fijado de rango. Contacto visible.</p></div>
+  <div class="card"><h3>6. Conversá en comentarios</h3><p class="muted">Respondé, preguntá, generá debate. La comunidad se construye en los comentarios tanto como en el video.</p></div>
+</div>
+
+<footer>
+  Estrategia generada para Nahuel · Proyecto "UGC Catriel" · Julio 2026<br>
+  Enfoque: comunidad de actores independientes · ejes emocional + abogado-actor.
+</footer>
+
+</div>
+
+<script>
+const weeks = [
+ {label:"Semana 1 · 1–3 de julio (arranque)", days:[
+   {date:"Miércoles 1 jul", stage:"mofu", label:"MOFU · Valor", opts:[
+     {t:"Carta de presentación honesta", h:"\"Soy actor desde los 10. También soy abogado. Y este año decidí dejar de esconder una de las dos.\"", d:"A cámara, directo, presentando su doble vida y por qué empieza a hablarle a otros actores.", w:"Establece el tono comunitario desde el día 1: no viene a lucirse, viene a acompañar."},
+     {t:"Para quién es esta cuenta", h:"\"Si sos actor y a veces sentís que estás solo en esto, quedate.\"", d:"Define a quién le habla y qué va a encontrar. Una promesa a la comunidad.", w:"Le dice al público objetivo 'esto es para vos' — clave para que un actor decida seguir."},
+     {t:"La pregunta que nadie responde", h:"\"¿Se puede ser actor 'de verdad' si tenés otro trabajo? Te cuento mi respuesta.\"", d:"Abre el tema de la doble vida que tantos actores cargan en silencio.", w:"Toca un dolor compartido enorme; genera comentarios e identificación inmediata."}
+   ]},
+   {date:"Viernes 3 jul", stage:"bofu", label:"BOFU · Demostrar", opts:[
+     {t:"Reel-rango con contexto humano", h:"\"21 años actuando en 30 segundos\" — corte directo a una escena intensa.", d:"Showreel breve (drama/comedia/tensión) presentado como 'quién soy', no como CV frío.", w:"Muestra rango a productores y, al enmarcarlo en su historia, también conecta con la comunidad."},
+     {t:"Una escena, una emoción real", h:"\"Esto lo grabé llorando de verdad. Te muestro cómo llegué ahí.\"", d:"Escena emotiva + breve detrás del proceso emocional.", w:"Demuestra oficio (para industria) y enseña algo (para actores). Doble target."},
+     {t:"Invitación a la comunidad", h:"\"Busco actores independientes para colaborar. ¿Quién se suma?\"", d:"Muestra un registro fuerte y abre puerta a colaboración/networking.", w:"Convoca a la comunidad y señala disponibilidad a la industria a la vez."}
+   ]}
+ ]},
+ {label:"Semana 2 · 6–10 de julio", days:[
+   {date:"Lunes 6 jul", stage:"tofu", label:"TOFU · Identificación", opts:[
+     {t:"Cosas que solo entiende un actor", h:"\"Cosas que te pasan siendo actor y nadie más entiende\" (lista actuada y con humor)", d:"Mini-sketch de situaciones típicas: el casting que nunca llamó, ensayar en el colectivo, etc.", w:"Altísima identificación + humor = shares masivos dentro de la comunidad actoral."},
+     {t:"El rechazo en números", h:"\"Cuántos 'no' recibí este año antes de un solo 'sí'.\"", d:"Honestidad cruda sobre el rechazo, a cámara.", w:"Vulnerabilidad real: el contenido que más comparten los actores porque los representa."},
+     {t:"POV del actor", h:"\"POV: te dicen 'pero de qué vivís' por décima vez esta semana.\"", d:"Mini-escena POV sobre la incomprensión que viven los actores.", w:"Formato nativo y muy compartible; cruza humor con un dolor real del público."}
+   ]},
+   {date:"Miércoles 8 jul", stage:"mofu", label:"MOFU · Valor", opts:[
+     {t:"Abogado de día, actor de noche", h:"\"Cómo organizo mi semana para no abandonar la actuación teniendo otro laburo.\"", d:"Tips concretos de cómo sostiene ambas vidas.", w:"Valor práctico directo para los muchos actores que combinan oficios. Su diferencial puro."},
+     {t:"El error #1 al empezar a actuar", h:"\"El error que cometí 10 años y que casi nadie te dice.\"", d:"Tip técnico/de carrera accionable.", w:"Aporta valor de oficio y posiciona a Catriel como alguien que sabe y comparte."},
+     {t:"Manejar los nervios", h:"\"Lo que aprendí litigando que uso en cada casting.\"", d:"Cruza sus dos mundos para dar una herramienta real contra los nervios.", w:"Une los pilares (abogado + oficio), aporta valor y refuerza su voz única."}
+   ]},
+   {date:"Viernes 10 jul", stage:"bofu", label:"BOFU · Demostrar", opts:[
+     {t:"Self-tape comentado", h:"\"Te muestro un self-tape real y qué haría distinto.\"", d:"Comparte un self-tape y lo analiza — enseña mientras demuestra.", w:"Enseña a la comunidad y muestra profesionalismo a la industria. Doble valor."},
+     {t:"Rango en 30 segundos", h:"\"Drama, comedia y villano. ¿Cuál te convenció?\"", d:"Tres registros opuestos + CTA a comentar.", w:"Muestra versatilidad e invita interacción que potencia el alcance."},
+     {t:"Escena cinematográfica", h:"Arranca en el clímax emocional, sin intro.", d:"Pieza más producida de 30-45s, bien dirigida.", w:"Material que un productor quiere ver; demuestra que sostiene una escena de verdad."}
+   ]}
+ ]},
+ {label:"Semana 3 · 13–17 de julio", days:[
+   {date:"Lunes 13 jul", stage:"tofu", label:"TOFU · Identificación", opts:[
+     {t:"Tipos de actores que todos conocemos", h:"\"Tipos de actores en un casting\" (interpretando cada uno)", d:"Sketch donde encarna varios arquetipos de la comunidad con humor cariñoso.", w:"Humor de gremio + demostración de versatilidad. Muy compartible entre actores."},
+     {t:"La culpa del actor", h:"\"La culpa de elegir el arte cuando 'deberías' tener algo estable.\"", d:"Reflexión honesta sobre la presión social que viven los actores.", w:"Toca un nervio emocional profundo y universal en el público objetivo."},
+     {t:"Trend del momento, versión actor", h:"Sumar un audio/trend viral pero llevándolo a la vida de un actor.", d:"Toma un formato que ya rinde y lo adapta al mundo actoral.", w:"Aprovecha alcance del algoritmo manteniendo la identificación con la comunidad."}
+   ]},
+   {date:"Miércoles 15 jul", stage:"mofu", label:"MOFU · Valor", opts:[
+     {t:"¿Vale la pena seguir a los 31?", h:"\"Me preguntan si no es 'tarde' para apostar a actuar. Mi respuesta honesta.\"", d:"Reflexión sobre edad y vocación, sin clichés.", w:"Tema enorme para actores que dudan; genera comentarios y fideliza."},
+     {t:"Cómo construyo un personaje", h:"\"Mi proceso de cero a personaje, explicado simple.\"", d:"Comparte su método de forma accionable.", w:"Valor de oficio que la comunidad guarda y comparte; también lucible para industria."},
+     {t:"Responder un comentario real", h:"\"Un actor me escribió esto y me pareció importante responderlo en serio.\"", d:"Toma un comentario de la comunidad y le dedica un video.", w:"Construye comunidad activamente y muestra que escucha a su público."}
+   ]},
+   {date:"Viernes 17 jul", stage:"bofu", label:"BOFU · Demostrar", opts:[
+     {t:"Personaje extremo", h:"Corte directo a un villano/registro oscuro e intenso.", d:"Transformación radical que contraste con su persona real.", w:"Impresiona a casting (rango) y asombra a la comunidad (versatilidad)."},
+     {t:"Detrás de una escena con cero presupuesto", h:"\"Cómo grabé esto solo, en mi casa, con un celular.\"", d:"Muestra recursividad + resultado final.", w:"Enseña autogestión a actores independientes y muestra ingenio a productores."},
+     {t:"Misma escena, 2 intensidades", h:"\"La actué sobria y exagerada. ¿Cuál funciona?\"", d:"Demuestra control técnico + CTA a opinar.", w:"Evidencia oficio y abre conversación con la comunidad."}
+   ]}
+ ]},
+ {label:"Semana 4 · 20–24 de julio", days:[
+   {date:"Lunes 20 jul", stage:"tofu", label:"TOFU · Identificación", opts:[
+     {t:"Lo que nadie te cuenta de ser actor", h:"\"Nadie te avisa que el 90% de esto es esperar y que te digan que no.\"", d:"Verdad cruda sobre la profesión, dicha con honestidad.", w:"Contenido-bandera de la comunidad: se comparte porque por fin alguien lo dice."},
+     {t:"Doble vida en un día", h:"\"6am juzgado, 9pm ensayo. Un día en mis dos vidas.\"", d:"Vlog corto y dinámico mostrando la rutina dual.", w:"Su diferencial en formato cercano; inspira a actores que combinan trabajos."},
+     {t:"Microficción con la que todo actor se identifica", h:"\"Mirá hasta el final\" — escena de 15s sobre recibir (o no) el llamado.", d:"Historia mínima con giro emocional ligado al oficio.", w:"El giro genera rewatch y la temática asegura shares del público objetivo."}
+   ]},
+   {date:"Miércoles 22 jul", stage:"mofu", label:"MOFU · Valor", opts:[
+     {t:"Cómo manejo el rechazo sin abandonar", h:"\"3 cosas que hago después de cada 'no' para no tirar la toalla.\"", d:"Herramientas emocionales concretas y honestas.", w:"Valor emocional + práctico sobre el dolor #1 de la comunidad. Muy guardado."},
+     {t:"Lo que la actuación me dio como abogado", h:"\"Actuar me hizo mejor en el juzgado. Y litigar me hizo mejor actor.\"", d:"Cruza sus mundos mostrando el valor mutuo.", w:"Refuerza su voz única y le habla a quienes dudan de combinar oficios."},
+     {t:"Recursos para actores independientes", h:"\"Cómo conseguir material y práctica sin gastar plata.\"", d:"Tips de autogestión para quien empieza.", w:"Valor altamente accionable para el público principal; genera follows."}
+   ]},
+   {date:"Viernes 24 jul", stage:"bofu", label:"BOFU · Demostrar", opts:[
+     {t:"Showreel temático", h:"\"Solo escenas de tensión. 40 segundos.\"", d:"Compilado enfocado en un registro, bien editado.", w:"Ayuda a un productor a imaginarlo en un tipo de papel concreto."},
+     {t:"Habilidad difícil a cámara", h:"\"Llorar de verdad vs actuar que llorás. Hay diferencia.\"", d:"Demuestra una técnica difícil y la explica.", w:"Impresiona a la industria y enseña a la comunidad. Doble target perfecto."},
+     {t:"Convocatoria a colaborar", h:"\"Si sos actor, director o productor independiente, armemos algo.\"", d:"Muestra rango + CTA a networking y castings.", w:"Activa a la comunidad (colaboraciones) y a la industria (contacto) al mismo tiempo."}
+   ]}
+ ]},
+ {label:"Semana 5 · 27–31 de julio (cierre de mes)", days:[
+   {date:"Lunes 27 jul", stage:"tofu", label:"TOFU · Identificación", opts:[
+     {t:"Frases que todo actor escuchó", h:"\"'¿Y de eso vivís?' y otras frases que nos marcaron.\"", d:"Recopilación actuada y con humor de los comentarios que cargan los actores.", w:"Identificación pura + humor compartible; clásico contenido de comunidad."},
+     {t:"El miedo a que sea solo un hobby", h:"\"El miedo de que te digan (o pensar vos mismo) que es 'solo un hobby'.\"", d:"Reflexión vulnerable sobre la legitimidad del oficio.", w:"Toca la inseguridad central del público objetivo; mucha conexión."},
+     {t:"Adiviná si actúo o es real", h:"\"¿Esto me pasó o lo actué?\"", d:"Juega con la línea realidad/ficción.", w:"Genera debate en comentarios (gran señal de algoritmo) y muestra naturalidad."}
+   ]},
+   {date:"Miércoles 29 jul", stage:"mofu", label:"MOFU · Valor", opts:[
+     {t:"Balance honesto del primer mes", h:"\"Hace un mes empecé a hablarle a otros actores. Esto aprendí.\"", d:"Reflexión sobre el camino + lo que viene, agradeciendo a la comunidad.", w:"Cierra el arco del mes y premia a quienes lo siguen desde el inicio."},
+     {t:"Mi mejor consejo para un actor que empieza", h:"\"Si pudiera decirle algo a mí mismo a los 18 actuando, sería esto.\"", d:"Consejo honesto y emotivo dirigido a la comunidad.", w:"Valor emocional + práctico; muy guardado y compartido."},
+     {t:"Responder las dudas más comunes", h:"\"Las 3 preguntas que más me hicieron este mes, respondidas.\"", d:"Q&A con las dudas reales de la comunidad.", w:"Refuerza comunidad e invita más preguntas (más interacción)."}
+   ]},
+   {date:"Viernes 31 jul", stage:"bofu", label:"BOFU · Demostrar", opts:[
+     {t:"Lo mejor del mes (highlight)", h:"\"Lo mejor que actué este mes en 45 segundos.\"", d:"Compilado de sus mejores registros de julio, reusable como reel fijado.", w:"Cierra fuerte y deja material de vidriera para la industria."},
+     {t:"Escena a dúo con otro actor", h:"Escena de dos que muestre escucha y química.", d:"Colabora con otro intérprete de la comunidad.", w:"Activa la red de actores y muestra la 'escucha' actoral que valora la industria."},
+     {t:"Carta abierta: actores y productores", h:"\"Si sos actor, gracias por este mes. Si sos productor, esto es lo que hago.\"", d:"Mensaje de cierre a ambos públicos + contacto.", w:"Cierra el mes hablándole a la comunidad y a quien decide, con CTA claro."}
+   ]}
+ ]}
+];
+
+const stageClass = {tofu:"t-tofu", mofu:"t-mofu", bofu:"t-bofu"};
+const cal = document.getElementById('cal');
+weeks.forEach(wk=>{
+  const wd = document.createElement('div'); wd.className='week';
+  wd.innerHTML = `<div class="week-h">${wk.label}</div>`;
+  wk.days.forEach(day=>{
+    const d = document.createElement('div'); d.className='day';
+    let optsHtml = day.opts.map((o,i)=>`
+      <div class="opt" style="border-left-color:var(--${day.stage})">
+        <b>Opción ${i+1} · ${o.t}</b><br>
+        <span class="hook">${o.h}</span><br>
+        <span>${o.d}</span><br>
+        <span class="why">🎯 Por qué: ${o.w}</span>
+      </div>`).join('');
+    d.innerHTML = `
+      <div class="day-head" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="day-date">${day.date}</div>
+          <div class="day-meta">3 opciones para elegir</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="tag ${stageClass[day.stage]}" style="margin:0">${day.label}</span>
+          <span class="chev">▶</span>
+        </div>
+      </div>
+      <div class="opts">${optsHtml}</div>`;
+    wd.appendChild(d);
+  });
+  cal.appendChild(wd);
+});
+document.querySelector('.day')?.classList.add('open');
+</script>
+</body>
+</html>
